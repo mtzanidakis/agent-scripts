@@ -8,3 +8,4 @@ A collection of scripts and commands designed to be consumed by AI agents. For p
 |--------|-------------|
 | [gh-daily-tasks](gh-daily-tasks/) | GitHub daily dashboard CLI. Fetches open PRs, issues, dependabot alerts, and star/fork changes for personal repos. Outputs JSON. |
 | [morning-tasks](morning-tasks/) | Morning routine aggregator CLI. Fetches weather, Greek namedays, clustered news headlines, and deals into compact, agent-friendly output. |
+| [youtube-summarizer](youtube-summarizer/) | Claude Code skill that summarizes YouTube videos from their transcript using yt-dlp. |
