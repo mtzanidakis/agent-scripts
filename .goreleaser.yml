@@ -1,0 +1,55 @@
+version: 2
+
+builds:
+  - id: gh-daily-tasks
+    main: ./gh-daily-tasks
+    binary: gh-daily-tasks
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+
+  - id: morning-tasks
+    main: ./morning-tasks
+    binary: morning-tasks
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+
+archives:
+  - id: gh-daily-tasks
+    ids: [gh-daily-tasks]
+    name_template: "gh-daily-tasks_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+
+  - id: morning-tasks
+    ids: [morning-tasks]
+    name_template: "morning-tasks_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  sort: asc
