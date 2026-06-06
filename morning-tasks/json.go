@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/manolis/morning-tasks/namedays"
+	"github.com/mtzanidakis/agent-scripts/morning-tasks/namedays"
 	miniflux "miniflux.app/v2/client"
 )
 
@@ -26,10 +26,10 @@ type weatherCurrent struct {
 }
 
 type weatherDayInfo struct {
-	Date       string  `json:"date"`
-	MinTemp    float64 `json:"min_temp"`
-	MaxTemp    float64 `json:"max_temp"`
-	Summary    string  `json:"summary"`
+	Date    string  `json:"date"`
+	MinTemp float64 `json:"min_temp"`
+	MaxTemp float64 `json:"max_temp"`
+	Summary string  `json:"summary"`
 }
 
 type namedaysResult struct {
@@ -58,10 +58,10 @@ type newsResult struct {
 }
 
 type taskResult struct {
-	Weather  *weatherResult  `json:"weather,omitempty"`
-	Namedays *namedaysResult `json:"namedays,omitempty"`
-	Offers   *offersResult   `json:"offers,omitempty"`
-	News     *newsResult     `json:"news,omitempty"`
+	Weather  *weatherResult    `json:"weather,omitempty"`
+	Namedays *namedaysResult   `json:"namedays,omitempty"`
+	Offers   *offersResult     `json:"offers,omitempty"`
+	News     *newsResult       `json:"news,omitempty"`
 	Errors   map[string]string `json:"errors,omitempty"`
 }
 

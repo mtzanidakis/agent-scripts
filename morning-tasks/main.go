@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/manolis/morning-tasks/namedays"
+	"github.com/mtzanidakis/agent-scripts/morning-tasks/namedays"
 	miniflux "miniflux.app/v2/client"
 )
 
@@ -115,7 +115,7 @@ func main() {
 		var err error
 		date, err = time.Parse("2006-01-02", *dateFlag)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "invalid date %q: %v\n", *dateFlag, err)
+			_, _ = fmt.Fprintf(os.Stderr, "invalid date %q: %v\n", *dateFlag, err)
 			os.Exit(1)
 		}
 	}
@@ -154,7 +154,7 @@ func runText(date time.Time, shouldRun func(string) bool) {
 			continue
 		}
 		if err := t.fn(date); err != nil {
-			fmt.Fprintf(os.Stderr, "%s: %v\n", t.name, err)
+			_, _ = fmt.Fprintf(os.Stderr, "%s: %v\n", t.name, err)
 		}
 	}
 }
@@ -245,7 +245,7 @@ func runJSON(date time.Time, shouldRun func(string) bool) {
 	enc := json.NewEncoder(os.Stdout)
 	enc.SetIndent("", "  ")
 	if err := enc.Encode(result); err != nil {
-		fmt.Fprintf(os.Stderr, "json: %v\n", err)
+		_, _ = fmt.Fprintf(os.Stderr, "json: %v\n", err)
 		os.Exit(1)
 	}
 }

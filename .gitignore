@@ -1,0 +1,6 @@
+.env
+mise.local.toml
+/bin/
+/dist/
+/tmp/
+*.test
