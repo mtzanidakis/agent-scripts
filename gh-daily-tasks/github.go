@@ -154,7 +154,7 @@ func collectReports(client *api.RESTClient, repos []Repo) []RepoReport {
 
 func logWarning(format string, args ...any) {
 	msg := fmt.Sprintf(format, args...)
-	fmt.Fprintf(warningWriter, "warning: %s\n", msg)
+	_, _ = fmt.Fprintf(warningWriter, "warning: %s\n", msg)
 }
 
 // warningWriter is set to os.Stderr in main.

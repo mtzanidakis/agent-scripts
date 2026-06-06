@@ -112,7 +112,7 @@ func TestFetchWeather(t *testing.T) {
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(testResponse)
+		_ = json.NewEncoder(w).Encode(testResponse)
 	}))
 	defer srv.Close()
 

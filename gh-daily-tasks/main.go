@@ -17,7 +17,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("database error: %v", err)
 	}
-	defer db.Close()
+	defer func() { _ = db.Close() }()
 
 	client, err := api.DefaultRESTClient()
 	if err != nil {

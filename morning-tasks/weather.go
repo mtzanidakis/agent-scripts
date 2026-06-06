@@ -57,7 +57,7 @@ func fetchWeather(baseURL, apiKey, location string) (*weatherResponse, error) {
 	if err != nil {
 		return nil, fmt.Errorf("weather: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("weather: status %d", resp.StatusCode)
@@ -71,7 +71,7 @@ func fetchWeather(baseURL, apiKey, location string) (*weatherResponse, error) {
 }
 
 func formatWeather(w io.Writer, data *weatherResponse, date time.Time) {
-	fmt.Fprintln(w, "=== Weather ===")
+	_, _ = fmt.Fprintln(w, "=== Weather ===")
 
 	dateStr := date.Format("2006-01-02")
 	today := time.Now().Format("2006-01-02")
@@ -79,10 +79,10 @@ func formatWeather(w io.Writer, data *weatherResponse, date time.Time) {
 
 	if isToday {
 		c := data.Current
-		fmt.Fprintf(w, "Now: %s, %.0f°C\n", c.Summary, c.Temperature)
-		fmt.Fprintf(w, "Wind: %.0f km/h %s | Clouds: %d%%\n", c.Wind.Speed, c.Wind.Dir, c.CloudCover)
+		_, _ = fmt.Fprintf(w, "Now: %s, %.0f°C\n", c.Summary, c.Temperature)
+		_, _ = fmt.Fprintf(w, "Wind: %.0f km/h %s | Clouds: %d%%\n", c.Wind.Speed, c.Wind.Dir, c.CloudCover)
 		if c.Precipitation.Total > 0 {
-			fmt.Fprintf(w, "Precipitation: %.1f mm (%s)\n", c.Precipitation.Total, c.Precipitation.Type)
+			_, _ = fmt.Fprintf(w, "Precipitation: %.1f mm (%s)\n", c.Precipitation.Total, c.Precipitation.Type)
 		}
 	}
 
@@ -99,9 +99,9 @@ func formatWeather(w io.Writer, data *weatherResponse, date time.Time) {
 		if isToday {
 			label = "Today"
 		}
-		fmt.Fprintf(w, "%s: %.0f–%.0f°C  %s\n",
+		_, _ = fmt.Fprintf(w, "%s: %.0f–%.0f°C  %s\n",
 			label, found.AllDay.TemperatureMin, found.AllDay.TemperatureMax, strings.ToLower(found.Summary))
 	} else if !isToday {
-		fmt.Fprintf(w, "%s: no data\n", dateStr)
+		_, _ = fmt.Fprintf(w, "%s: no data\n", dateStr)
 	}
 }

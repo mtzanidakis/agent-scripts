@@ -278,15 +278,15 @@ func processEntries(entries []*miniflux.Entry, date time.Time) []hotTopic {
 }
 
 func formatNews(w io.Writer, topics []hotTopic) {
-	fmt.Fprintln(w, "=== News ===")
+	_, _ = fmt.Fprintln(w, "=== News ===")
 	if len(topics) == 0 {
-		fmt.Fprintln(w, "no hot topics")
+		_, _ = fmt.Fprintln(w, "no hot topics")
 		return
 	}
 	for _, t := range topics {
-		fmt.Fprintf(w, "- %s\n", t.title)
+		_, _ = fmt.Fprintf(w, "- %s\n", t.title)
 		if t.url != "" {
-			fmt.Fprintf(w, "  %s\n", t.url)
+			_, _ = fmt.Fprintf(w, "  %s\n", t.url)
 		}
 	}
 }

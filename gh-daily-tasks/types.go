@@ -41,11 +41,11 @@ type Label struct {
 }
 
 type DependabotAlert struct {
-	Number              int                `json:"number"`
-	State               string             `json:"state"`
-	SecurityAdvisory    SecurityAdvisory   `json:"security_advisory"`
+	Number                int                    `json:"number"`
+	State                 string                 `json:"state"`
+	SecurityAdvisory      SecurityAdvisory       `json:"security_advisory"`
 	SecurityVulnerability *SecurityVulnerability `json:"security_vulnerability,omitempty"`
-	HTMLURL             string             `json:"html_url"`
+	HTMLURL               string                 `json:"html_url"`
 }
 
 type SecurityAdvisory struct {
@@ -78,19 +78,19 @@ type Delta struct {
 // JSON output types
 
 type OutputReport struct {
-	Date       string       `json:"date"`
-	TotalRepos int          `json:"total_repos"`
-	Repos      []OutputRepo `json:"repos"`
+	Date       string        `json:"date"`
+	TotalRepos int           `json:"total_repos"`
+	Repos      []OutputRepo  `json:"repos"`
 	Summary    OutputSummary `json:"summary"`
 }
 
 type OutputRepo struct {
-	Name             string             `json:"name"`
-	OpenPRs          []OutputPR         `json:"open_prs,omitempty"`
-	OpenIssues       []OutputIssue      `json:"open_issues,omitempty"`
-	DependabotAlerts []OutputAlert      `json:"dependabot_alerts,omitempty"`
-	Stars            Delta              `json:"stars"`
-	Forks            Delta              `json:"forks"`
+	Name             string        `json:"name"`
+	OpenPRs          []OutputPR    `json:"open_prs,omitempty"`
+	OpenIssues       []OutputIssue `json:"open_issues,omitempty"`
+	DependabotAlerts []OutputAlert `json:"dependabot_alerts,omitempty"`
+	Stars            Delta         `json:"stars"`
+	Forks            Delta         `json:"forks"`
 }
 
 type OutputPR struct {

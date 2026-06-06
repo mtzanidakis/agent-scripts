@@ -51,15 +51,15 @@ func markAsRead(c *miniflux.Client, entries []*miniflux.Entry) error {
 }
 
 func formatOffers(w io.Writer, entries []*miniflux.Entry) {
-	fmt.Fprintln(w, "=== Offers ===")
+	_, _ = fmt.Fprintln(w, "=== Offers ===")
 	if len(entries) == 0 {
-		fmt.Fprintln(w, "no new offers")
+		_, _ = fmt.Fprintln(w, "no new offers")
 		return
 	}
 	for _, e := range entries {
-		fmt.Fprintf(w, "- %s\n", e.Title)
+		_, _ = fmt.Fprintf(w, "- %s\n", e.Title)
 		if e.URL != "" {
-			fmt.Fprintf(w, "  %s\n", e.URL)
+			_, _ = fmt.Fprintf(w, "  %s\n", e.URL)
 		}
 	}
 }

@@ -27,7 +27,7 @@ func openDB() (*sql.DB, error) {
 		return nil, fmt.Errorf("opening database: %w", err)
 	}
 	if err := migrate(db); err != nil {
-		db.Close()
+		_ = db.Close()
 		return nil, fmt.Errorf("migrating database: %w", err)
 	}
 	return db, nil
@@ -70,7 +70,7 @@ func getPreviousSnapshots(db *sql.DB, repoNames []string) (map[string]Snapshot, 
 	if err != nil {
 		return nil, err
 	}
-	defer stmt.Close()
+	defer func() { _ = stmt.Close() }()
 
 	for _, name := range repoNames {
 		var s Snapshot
@@ -92,13 +92,13 @@ func saveSnapshots(db *sql.DB, reports []RepoReport) error {
 	if err != nil {
 		return err
 	}
-	defer tx.Rollback()
+	defer func() { _ = tx.Rollback() }()
 
 	stmt, err := tx.Prepare(`INSERT INTO repo_snapshots (full_name, stars, forks, recorded_at) VALUES (?, ?, ?, ?)`)
 	if err != nil {
 		return err
 	}
-	defer stmt.Close()
+	defer func() { _ = stmt.Close() }()
 
 	now := time.Now().UTC().Format(time.RFC3339)
 	for _, r := range reports {
