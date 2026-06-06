@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math"
 	"strings"
 	"time"
 
@@ -80,7 +81,7 @@ func weatherData(data *weatherResponse, date time.Time) *weatherResult {
 			Temperature: c.Temperature,
 			WindSpeed:   c.Wind.Speed,
 			WindDir:     c.Wind.Dir,
-			CloudCover:  c.CloudCover,
+			CloudCover:  int(math.Round(c.CloudCover)),
 		}
 		if c.Precipitation.Total > 0 {
 			res.Current.PrecipitationMM = c.Precipitation.Total

@@ -128,6 +128,28 @@ func TestFetchWeather(t *testing.T) {
 	}
 }
 
+func TestFetchWeatherFloatCloudCover(t *testing.T) {
+	// Meteosource sometimes returns whole-number fields like cloud_cover as
+	// floats (e.g. 0.0). The response struct must accept them without failing
+	// to unmarshal.
+	body := `{"current":{"summary":"Clear","temperature":12.0,"cloud_cover":0.0,` +
+		`"wind":{"speed":2.0,"dir":"N"},"precipitation":{"total":0.0,"type":"none"}},` +
+		`"daily":{"data":[]}}`
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(body))
+	}))
+	defer srv.Close()
+
+	data, err := fetchWeather(srv.URL, "key", "anywhere")
+	if err != nil {
+		t.Fatalf("unexpected error parsing float cloud_cover: %v", err)
+	}
+	if data.Current.CloudCover != 0 {
+		t.Errorf("got cloud_cover %v, want 0", data.Current.CloudCover)
+	}
+}
+
 func TestFetchWeatherBadStatus(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "not found", http.StatusNotFound)

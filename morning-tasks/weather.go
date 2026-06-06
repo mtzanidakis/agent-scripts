@@ -13,7 +13,7 @@ type weatherResponse struct {
 	Current struct {
 		Summary     string  `json:"summary"`
 		Temperature float64 `json:"temperature"`
-		CloudCover  int     `json:"cloud_cover"`
+		CloudCover  float64 `json:"cloud_cover"`
 		Wind        struct {
 			Speed float64 `json:"speed"`
 			Dir   string  `json:"dir"`
@@ -80,7 +80,7 @@ func formatWeather(w io.Writer, data *weatherResponse, date time.Time) {
 	if isToday {
 		c := data.Current
 		_, _ = fmt.Fprintf(w, "Now: %s, %.0f°C\n", c.Summary, c.Temperature)
-		_, _ = fmt.Fprintf(w, "Wind: %.0f km/h %s | Clouds: %d%%\n", c.Wind.Speed, c.Wind.Dir, c.CloudCover)
+		_, _ = fmt.Fprintf(w, "Wind: %.0f km/h %s | Clouds: %.0f%%\n", c.Wind.Speed, c.Wind.Dir, c.CloudCover)
 		if c.Precipitation.Total > 0 {
 			_, _ = fmt.Fprintf(w, "Precipitation: %.1f mm (%s)\n", c.Precipitation.Total, c.Precipitation.Type)
 		}
