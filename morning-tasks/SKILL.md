@@ -42,7 +42,7 @@ This skill runs as a scheduled daily task. It greets the user, runs `morning-tas
       {
         "title": "Breaking news headline",
         "url": "https://example.com/article",
-        "sources": ["Source1", "Source2"],
+        "sources": [{"Source1": "https://source1.example.com/article"}, {"Source2": "https://source2.example.com/article"}],
         "summary": "Brief summary of the story.",
         "category": "news"
       }
