@@ -10,15 +10,17 @@ import (
 )
 
 func makeEntry(title, content string, feedID int64, feedTitle, category string, published time.Time) *miniflux.Entry {
+	url := "https://example.com/" + strings.ReplaceAll(strings.ToLower(title), " ", "-")
 	return &miniflux.Entry{
 		Title:   title,
 		Content: content,
-		URL:     "https://example.com/" + strings.ReplaceAll(strings.ToLower(title), " ", "-"),
+		URL:     url,
 		FeedID:  feedID,
 		Date:    published,
 		Feed: &miniflux.Feed{
-			ID:    feedID,
-			Title: feedTitle,
+			ID:      feedID,
+			Title:   feedTitle,
+			SiteURL: "https://" + strings.ToLower(feedTitle) + ".example.com",
 			Category: &miniflux.Category{
 				Title: category,
 			},
@@ -128,7 +130,7 @@ func TestFormatNews(t *testing.T) {
 		{
 			title:   "Breaking news about earthquake",
 			summary: "A strong earthquake hit the region today",
-			sources: []string{"Feed A", "Feed B", "Feed C"},
+			sources: []map[string]string{{"Feed A": ""}, {"Feed B": ""}, {"Feed C": ""}},
 			url:     "https://example.com/earthquake",
 		},
 	}

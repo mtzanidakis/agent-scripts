@@ -47,11 +47,11 @@ type offersResult struct {
 }
 
 type newsTopicItem struct {
-	Title    string   `json:"title"`
-	URL      string   `json:"url,omitempty"`
-	Sources  []string `json:"sources"`
-	Summary  string   `json:"summary,omitempty"`
-	Category string   `json:"category"`
+	Title    string              `json:"title"`
+	URL      string              `json:"url,omitempty"`
+	Sources  []map[string]string `json:"sources"`
+	Summary  string              `json:"summary,omitempty"`
+	Category string              `json:"category"`
 }
 
 type newsResult struct {

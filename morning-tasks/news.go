@@ -49,7 +49,7 @@ var sentenceRe = regexp.MustCompile(`[.!?]+\s+`)
 type hotTopic struct {
 	title    string
 	summary  string
-	sources  []string
+	sources  []map[string]string
 	url      string
 	category string
 }
@@ -196,19 +196,25 @@ func buildTopics(clusters [][]*miniflux.Entry) []hotTopic {
 		}
 
 		// Unique sources
-		srcSet := make(map[string]bool)
+		srcSet := make(map[string]string) // name -> article URL
 		for _, e := range cluster {
 			name := "Unknown"
 			if e.Feed != nil {
 				name = e.Feed.Title
 			}
-			srcSet[name] = true
+			if _, exists := srcSet[name]; !exists {
+				srcSet[name] = e.URL
+			}
 		}
-		sources := make([]string, 0, len(srcSet))
-		for s := range srcSet {
-			sources = append(sources, s)
+		sources := make([]map[string]string, 0, len(srcSet))
+		names := make([]string, 0, len(srcSet))
+		for name := range srcSet {
+			names = append(names, name)
 		}
-		sort.Strings(sources)
+		sort.Strings(names)
+		for _, name := range names {
+			sources = append(sources, map[string]string{name: srcSet[name]})
+		}
 
 		// Best URL: entry with most content
 		bestURL := cluster[0].URL
@@ -287,6 +293,15 @@ func formatNews(w io.Writer, topics []hotTopic) {
 		_, _ = fmt.Fprintf(w, "- %s\n", t.title)
 		if t.url != "" {
 			_, _ = fmt.Fprintf(w, "  %s\n", t.url)
+		}
+		for _, src := range t.sources {
+			for name, url := range src {
+				if url != "" {
+					_, _ = fmt.Fprintf(w, "  [%s](%s)\n", name, url)
+				} else {
+					_, _ = fmt.Fprintf(w, "  %s\n", name)
+				}
+			}
 		}
 	}
 }
