@@ -4,7 +4,7 @@ go 1.26.5
 
 require (
 	github.com/cli/go-gh/v2 v2.13.0
-	miniflux.app/v2 v2.3.2
+	miniflux.app/v2 v2.3.3
 	modernc.org/sqlite v1.54.0
 )
 
@@ -25,9 +25,9 @@ require (
 	github.com/rogpeppe/go-internal v1.10.0 // indirect
 	github.com/stretchr/testify v1.11.1 // indirect
 	github.com/thlib/go-timezone-local v0.0.7 // indirect
-	golang.org/x/sys v0.46.0 // indirect
-	golang.org/x/term v0.44.0 // indirect
-	golang.org/x/text v0.38.0 // indirect
+	golang.org/x/sys v0.47.0 // indirect
+	golang.org/x/term v0.45.0 // indirect
+	golang.org/x/text v0.40.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	modernc.org/libc v1.74.1 // indirect
