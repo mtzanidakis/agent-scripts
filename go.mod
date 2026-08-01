@@ -5,7 +5,7 @@ go 1.26.5
 require (
 	github.com/cli/go-gh/v2 v2.13.0
 	miniflux.app/v2 v2.3.3
-	modernc.org/sqlite v1.54.0
+	modernc.org/sqlite v1.55.0
 )
 
 require (
