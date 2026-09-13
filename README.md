@@ -14,7 +14,7 @@ The two Go CLIs live in a single module (`github.com/mtzanidakis/agent-scripts`)
 
 ## Development
 
-The toolchain is pinned with [mise](https://mise.jdx.dev/) (`mise.toml`: Go 1.26.4, golangci-lint 2.12.2):
+The toolchain is pinned with [mise](https://mise.jdx.dev/) (`mise.toml`: Go 1.27.1, golangci-lint 2.13.2):
 
 ```bash
 mise install            # install the pinned Go + golangci-lint
