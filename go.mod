@@ -3,7 +3,7 @@ module github.com/mtzanidakis/agent-scripts
 go 1.27.2
 
 require (
-	github.com/cli/go-gh/v2 v2.16.2
+	github.com/cli/go-gh/v2 v2.17.0
 	miniflux.app/v2 v2.3.4
 	modernc.org/sqlite v1.60.1
 )
