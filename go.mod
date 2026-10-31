@@ -1,6 +1,6 @@
 module github.com/mtzanidakis/agent-scripts
 
-go 1.27.2
+go 1.27.3
 
 require (
 	github.com/cli/go-gh/v2 v2.17.0
